@@ -3,5 +3,3 @@
 
 format: jb-book
 root: docs/notebook
-chapters:
-- file: docs/notebook
