@@ -22,15 +22,14 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-
+import plotly.graph_objs as go
+import plotly.express as px
 import pandas as pd
 
 # Load data
-registrations_wo = pd.read_csv('04.-inschrijvingen-wo-2024.csv', sep=';')
-student_predictions = pd.read_excel('studentenprognoses-2025.xlsx', header=8)
+registraties_wo = pd.read_csv('04.-inschrijvingen-wo-2024.csv', sep=';')
+pre_student_prognoses = pd.read_excel('studentenprognoses-2025.xlsx', sheet_name="i v o s t h") #Selecteer de juiste sheet uit de dataset
 
-# Toon eerste rijen
-registrations_wo.head(), student_prognoses.head()
 
 ------------------
 
@@ -57,12 +56,10 @@ File [1;32m<frozen importlib._bootstrap>:1004[0m, in [0;36m_find_and_load_unl
 During handling of the above exception, another exception occurred:
 
 [1;31mImportError[0m                               Traceback (most recent call last)
-Cell [1;32mIn[1], line 5[0m
-[0;32m      3[0m [38;5;66;03m# Load data[39;00m
-[0;32m      4[0m registrations_wo [38;5;241m=[39m pd[38;5;241m.[39mread_csv([38;5;124m'[39m[38;5;124m04.-inschrijvingen-wo-2024.csv[39m[38;5;124m'[39m, sep[38;5;241m=[39m[38;5;124m'[39m[38;5;124m;[39m[38;5;124m'[39m)
-[1;32m----> 5[0m student_predictions [38;5;241m=[39m [43mpd[49m[38;5;241;43m.[39;49m[43mread_excel[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43mstudentenprognoses-2025.xlsx[39;49m[38;5;124;43m'[39;49m[43m,[49m[43m [49m[43mheader[49m[38;5;241;43m=[39;49m[38;5;241;43m8[39;49m[43m)[49m
-[0;32m      7[0m [38;5;66;03m# Toon eerste rijen[39;00m
-[0;32m      8[0m registrations_wo[38;5;241m.[39mhead(), student_prognoses[38;5;241m.[39mhead()
+Cell [1;32mIn[1], line 7[0m
+[0;32m      5[0m [38;5;66;03m# Load data[39;00m
+[0;32m      6[0m registraties_wo [38;5;241m=[39m pd[38;5;241m.[39mread_csv([38;5;124m'[39m[38;5;124m04.-inschrijvingen-wo-2024.csv[39m[38;5;124m'[39m, sep[38;5;241m=[39m[38;5;124m'[39m[38;5;124m;[39m[38;5;124m'[39m)
+[1;32m----> 7[0m pre_student_prognoses [38;5;241m=[39m [43mpd[49m[38;5;241;43m.[39;49m[43mread_excel[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43mstudentenprognoses-2025.xlsx[39;49m[38;5;124;43m'[39;49m[43m,[49m[43m [49m[43msheet_name[49m[38;5;241;43m=[39;49m[38;5;124;43m"[39;49m[38;5;124;43mi v o s t h[39;49m[38;5;124;43m"[39;49m[43m)[49m [38;5;66;03m#Selecteer de juiste sheet uit de dataset[39;00m
 
 File [1;32m~\anaconda3\envs\jupyterbook\lib\site-packages\pandas\io\excel\_base.py:495[0m, in [0;36mread_excel[1;34m(io, sheet_name, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skiprows, nrows, na_values, keep_default_na, na_filter, verbose, parse_dates, date_parser, date_format, thousands, decimal, comment, skipfooter, storage_options, dtype_backend, engine_kwargs)[0m
 [0;32m    493[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m [38;5;28misinstance[39m(io, ExcelFile):

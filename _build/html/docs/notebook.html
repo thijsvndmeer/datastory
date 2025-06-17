@@ -402,31 +402,31 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enrollment-trends-and-future-projections">Enrollment Trends and Future Projections</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-and-preprocessing">Dataset and Preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing-summary">Data Preprocessing Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-data">1. Loading the Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-column-names">2. Cleaning Column Names</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-relevant-columns">3. Filtering Relevant Columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reshaping-enrolment-data">4. Reshaping Enrolment Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-enrolment-values">5. Cleaning Enrolment Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#harmonizing-institution-codes">6. Harmonizing Institution Codes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-prognoses-and-enrolments">7. Merging Prognoses and Enrolments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-missing-data">8. Handling Missing Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#renaming-prognosis-columns">9. Renaming Prognosis Columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-the-final-dataset">10. Saving the Final Dataset</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perspective-1-the-benefits-of-enrollment-growth">Perspective 1: The Benefits of Enrollment Growth.</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-argument">Key Argument:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sub-arguments">Sub-arguments:</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#improved-access-to-higher-education">Improved Access to Higher Education:</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#increased-cultural-diversity">Increased Cultural Diversity:</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#growth-of-a-highly-educated-workforce">Growth of a Highly Educated Workforce:</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#relevant-data-variables">Relevant Data Variables:</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verdeling-naar-geslacht">Verdeling naar geslacht</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perspective-2-the-challenges-of-enrollment-growth">Perspective 2: The Challenges of Enrollment Growth</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Key Argument:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Sub-arguments:</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overburdened-infrastructure-and-resources">Overburdened Infrastructure and Resources:</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#decline-in-educational-quality">Decline in Educational Quality:</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#student-housing-shortage">Student Housing Shortage:</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Relevant Data Variables:</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-distribution">Task distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perspectief-2-prognoses-en-toekomstige-knelpunten">Perspectief 2: Prognoses en Toekomstige Knelpunten</a></li>
 </ul>
             </nav>
         </div>
@@ -469,23 +469,79 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">inschrijvingen_wo.csv</span></code> (University Enrollments 2019–2023): contains the number of enrollments per academic year, broken down by gender.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">student_prognoses.csv</span></code> (Higher Education Projections 2017–2038): contains historical and predicted student numbers for both universities (WO) and higher professional education (HBO).</p></li>
 </ul>
-<p><strong>Preprocessing:</strong></p>
-<ol class="arabic simple">
-<li><p>Load the CSV-files.</p></li>
-<li><p>Check for missing values.</p></li>
-<li><p>Verify that totals match the sums of the components (gender).</p></li>
-<li><p>Convert columns to the appropriate data types.</p></li>
-</ol>
+</section>
+<section id="data-preprocessing-summary">
+<h2>Data Preprocessing Summary<a class="headerlink" href="#data-preprocessing-summary" title="Link to this heading">#</a></h2>
+<p>The raw datasets consist of projected student numbers (prognoses) and actual enrolment figures (inschrijvingen) across various Dutch higher education institutions. These two data sources were cleaned, transformed, and merged to form a single structured dataset suitable for analysis and visualization. The preprocessing involved the following steps:</p>
+<section id="loading-the-data">
+<h3>1. Loading the Data<a class="headerlink" href="#loading-the-data" title="Link to this heading">#</a></h3>
+<p>We loaded the student prognosis data from an Excel file (<code class="docutils literal notranslate"><span class="pre">studentenprognoses-2025.xlsx</span></code>, sheet <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">v</span> <span class="pre">o</span> <span class="pre">s</span> <span class="pre">t</span> <span class="pre">h</span></code>) and the enrolment data from a semicolon-delimited CSV file (<code class="docutils literal notranslate"><span class="pre">04.-inschrijvingen-wo-2024.csv</span></code>). Both datasets contained columns with inconsistent formatting and redundant information.</p>
+</section>
+<section id="cleaning-column-names">
+<h3>2. Cleaning Column Names<a class="headerlink" href="#cleaning-column-names" title="Link to this heading">#</a></h3>
+<p>To standardize the data and facilitate further processing, all column names were:</p>
+<ul class="simple">
+<li><p>converted to lowercase,</p></li>
+<li><p>stripped of leading/trailing spaces,</p></li>
+<li><p>and had spaces replaced with underscores (<code class="docutils literal notranslate"><span class="pre">_</span></code>).</p></li>
+</ul>
+<p>This harmonization ensures consistent reference across operations.</p>
+</section>
+<section id="filtering-relevant-columns">
+<h3>3. Filtering Relevant Columns<a class="headerlink" href="#filtering-relevant-columns" title="Link to this heading">#</a></h3>
+<p>From the prognosis dataset, only the relevant columns were retained:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">instellingscode</span></code>, <code class="docutils literal notranslate"><span class="pre">instellingsnaam</span></code>, <code class="docutils literal notranslate"><span class="pre">jaar</span></code> (institution code, name, and year),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">instroom_ho</span></code>, <code class="docutils literal notranslate"><span class="pre">tweedejaars_ho</span></code>, and <code class="docutils literal notranslate"><span class="pre">hogerejaars_ho</span></code> (prognoses for first-year, second-year, and higher-year students).</p></li>
+</ul>
+<p>These variables reflect forecasted student flows per institution and year.</p>
+</section>
+<section id="reshaping-enrolment-data">
+<h3>4. Reshaping Enrolment Data<a class="headerlink" href="#reshaping-enrolment-data" title="Link to this heading">#</a></h3>
+<p>The enrolment data initially had one column per year. Using a transformation to “long format” (via a melt operation), we converted these year-columns into rows, yielding a structure with:</p>
+<ul class="simple">
+<li><p>institution metadata,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jaar</span></code> (year),</p></li>
+<li><p>and <code class="docutils literal notranslate"><span class="pre">inschrijvingen</span></code> (number of enrolments).</p></li>
+</ul>
+</section>
+<section id="cleaning-enrolment-values">
+<h3>5. Cleaning Enrolment Values<a class="headerlink" href="#cleaning-enrolment-values" title="Link to this heading">#</a></h3>
+<p>Some enrolment values were non-numeric or contained special symbols (e.g., <code class="docutils literal notranslate"><span class="pre">&lt;5</span></code>). We extracted the numeric portion using a regular expression and replaced missing or invalid values with <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</section>
+<section id="harmonizing-institution-codes">
+<h3>6. Harmonizing Institution Codes<a class="headerlink" href="#harmonizing-institution-codes" title="Link to this heading">#</a></h3>
+<p>If present, the <code class="docutils literal notranslate"><span class="pre">instellingscode_actueel</span></code> column (current institution code) was renamed to <code class="docutils literal notranslate"><span class="pre">instellingscode</span></code>, to match the naming in the prognosis dataset. Likewise, <code class="docutils literal notranslate"><span class="pre">instellingsnaam_actueel</span></code> was renamed to <code class="docutils literal notranslate"><span class="pre">instellingsnaam</span></code>.</p>
+</section>
+<section id="merging-prognoses-and-enrolments">
+<h3>7. Merging Prognoses and Enrolments<a class="headerlink" href="#merging-prognoses-and-enrolments" title="Link to this heading">#</a></h3>
+<p>We merged the datasets on <code class="docutils literal notranslate"><span class="pre">instellingscode</span></code> and <code class="docutils literal notranslate"><span class="pre">jaar</span></code>, using a <strong>left join</strong> to preserve all forecasted years—even those for which enrolment data is not yet available (i.e., future years).</p>
+</section>
+<section id="handling-missing-data">
+<h3>8. Handling Missing Data<a class="headerlink" href="#handling-missing-data" title="Link to this heading">#</a></h3>
+<p>Missing enrolment values (especially for future years) were filled with <code class="docutils literal notranslate"><span class="pre">0</span></code>, ensuring numerical consistency across rows.</p>
+</section>
+<section id="renaming-prognosis-columns">
+<h3>9. Renaming Prognosis Columns<a class="headerlink" href="#renaming-prognosis-columns" title="Link to this heading">#</a></h3>
+<p>To make the columns more descriptive, the following renamings were applied:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">instroom_ho</span></code> → <code class="docutils literal notranslate"><span class="pre">prognose_instroom</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tweedejaars_ho</span></code> → <code class="docutils literal notranslate"><span class="pre">prognose_tweedejaars</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hogerejaars_ho</span></code> → <code class="docutils literal notranslate"><span class="pre">prognose_hogerejaars</span></code></p></li>
+</ul>
+</section>
+<section id="saving-the-final-dataset">
+<h3>10. Saving the Final Dataset<a class="headerlink" href="#saving-the-final-dataset" title="Link to this heading">#</a></h3>
+<p>The final merged and cleaned dataset was sorted by institution and year, and saved as a CSV file:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objs</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># Load data</span>
-<span class="n">registrations_wo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;04.-inschrijvingen-wo-2024.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
-<span class="n">student_predictions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;studentenprognoses-2025.xlsx&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-
-<span class="c1"># Toon eerste rijen</span>
-<span class="n">registrations_wo</span><span class="o">.</span><span class="n">head</span><span class="p">(),</span> <span class="n">student_prognoses</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">registraties_wo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;04.-inschrijvingen-wo-2024.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="n">pre_student_prognoses</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;studentenprognoses-2025.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;i v o s t h&quot;</span><span class="p">)</span> <span class="c1">#Selecteer de juiste sheet uit de dataset</span>
 </pre></div>
 </div>
 </div>
@@ -512,12 +568,10 @@ document.write(`
 <span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
 
 <span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># Load data</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">registrations_wo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;04.-inschrijvingen-wo-2024.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">student_predictions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;studentenprognoses-2025.xlsx&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># Toon eerste rijen</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">registrations_wo</span><span class="o">.</span><span class="n">head</span><span class="p">(),</span> <span class="n">student_prognoses</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Load data</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">registraties_wo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;04.-inschrijvingen-wo-2024.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">pre_student_prognoses</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;studentenprognoses-2025.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;i v o s t h&quot;</span><span class="p">)</span> <span class="c1">#Selecteer de juiste sheet uit de dataset</span>
 
 <span class="nn">File ~\anaconda3\envs\jupyterbook\lib\site-packages\pandas\io\excel\_base.py:495,</span> in <span class="ni">read_excel</span><span class="nt">(io, sheet_name, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skiprows, nrows, na_values, keep_default_na, na_filter, verbose, parse_dates, date_parser, date_format, thousands, decimal, comment, skipfooter, storage_options, dtype_backend, engine_kwargs)</span>
 <span class="g g-Whitespace">    </span><span class="mi">493</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">ExcelFile</span><span class="p">):</span>
@@ -577,101 +631,29 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Preprocessing WO registrations</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Check for NA in WO:&#39;</span><span class="p">,</span> <span class="n">registrations_wo</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-<span class="c1"># Note: There is no &#39;Men&#39; or &#39;Women&#39; column in inscriptions_wo, so this check has been removed.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#preprocessing dataset 1</span>
+<span class="n">jaren</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2020&#39;</span><span class="p">,</span><span class="s1">&#39;2021&#39;</span><span class="p">,</span><span class="s1">&#39;2022&#39;</span><span class="p">,</span><span class="s1">&#39;2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2024&#39;</span><span class="p">]</span> <span class="c1">#lijstje met de jaren om opvolgende stappen makkelijker te maken</span>
 
-<span class="c1"># Preprocessing predictions</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Check for NA in predictions:&#39;</span><span class="p">,</span> <span class="n">student_predictions</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-<span class="c1"># Check that WO+HBO == Total</span>
-<span class="n">student_predictions</span><span class="p">[</span><span class="s1">&#39;Total_check&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">student_predictions</span><span class="p">[</span><span class="s1">&#39;WO&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">student_predictions</span><span class="p">[</span><span class="s1">&#39;HBO&#39;</span><span class="p">]</span>
-<span class="c1"># Add Total column from Total_check</span>
-<span class="n">student_predictions</span><span class="p">[</span><span class="s1">&#39;Total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">student_predictions</span><span class="p">[</span><span class="s1">&#39;Total_check&#39;</span><span class="p">]</span>
-<span class="n">student_predictions</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Total_check&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">registraties_wo</span> <span class="o">=</span> <span class="n">registraties_wo</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;5&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="c1">#veranderd waardes van &lt;5 naar 0</span>
 
-<span class="c1"># Data types</span>
-<span class="n">inscriptions_wo</span><span class="o">.</span><span class="n">dtypes</span><span class="p">,</span> <span class="n">student_predictions</span><span class="o">.</span><span class="n">dtypes</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Check for NA in WO: PROVINCIE                  0
-GEMEENTENUMMER             0
-GEMEENTENAAM               0
-SOORT INSTELLING           0
-TYPE HOGER ONDERWIJS       0
-INSTELLINGSCODE ACTUEEL    0
-INSTELLINGSNAAM ACTUEEL    0
-ONDERDEEL                  0
-SUBONDERDEEL               0
-OPLEIDINGSCODE ACTUEEL     0
-OPLEIDINGSNAAM ACTUEEL     0
-OPLEIDINGSVORM             0
-GESLACHT                   0
-2020                       0
-2021                       0
-2022                       0
-2023                       0
-2024                       0
-dtype: int64
-Check for NA in predictions: Unnamed: 0          36
-Gebruikte Primos     4
-2024                22
-dtype: int64
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="nn">File ~\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:3805,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3804</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">3805</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3806</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">jaar</span> <span class="ow">in</span> <span class="n">jaren</span><span class="p">:</span>
+    <span class="n">registraties_wo</span><span class="p">[</span><span class="n">jaar</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">registraties_wo</span><span class="p">[</span><span class="n">jaar</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+    
+<span class="c1">#preprocessing dataset 2</span>
+<span class="n">jaren2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2017&#39;</span><span class="p">,</span> <span class="s1">&#39;2018&#39;</span><span class="p">,</span> <span class="s1">&#39;2019&#39;</span><span class="p">,</span> <span class="s1">&#39;2020&#39;</span><span class="p">,</span> <span class="s1">&#39;2021&#39;</span><span class="p">,</span> <span class="s1">&#39;2022&#39;</span><span class="p">,</span> <span class="s1">&#39;2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2024&#39;</span><span class="p">]</span>
 
-<span class="nn">File index.pyx:167,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+<span class="n">pre_student_prognoses</span> <span class="o">=</span> <span class="n">pre_student_prognoses</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;5&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
 
-<span class="nn">File index.pyx:196,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ingeschrevenen_HO&#39;</span><span class="p">,</span> <span class="s1">&#39;instroom_RR&#39;</span><span class="p">,</span> <span class="s1">&#39;instroom_HO&#39;</span><span class="p">,</span> <span class="s1">&#39;tweedejaars_HO&#39;</span><span class="p">,</span> <span class="s1">&#39;hogerejaars_HO&#39;</span><span class="p">,</span> <span class="s1">&#39;instroom_THO_NW&#39;</span><span class="p">,</span> <span class="s1">&#39;tweedejaars_THO_NW&#39;</span><span class="p">,</span> <span class="s1">&#39;hogerejaars_THO_NW&#39;</span><span class="p">]:</span>
+    <span class="n">pre_student_prognoses</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">pre_student_prognoses</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
 
-<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7081,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7089,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="ne">KeyError</span>: &#39;WO&#39;
-
-<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
-
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">31</span><span class="p">],</span> <span class="n">line</span> <span class="mi">8</span>
-<span class="nn">      6 print(&#39;Check for NA</span> in <span class="ni">predictions:&#39;, student_predictions.isna().sum</span><span class="nt">())</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># Check that WO+HBO == Total</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">student_predictions</span><span class="p">[</span><span class="s1">&#39;Total_check&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">student_predictions</span><span class="p">[</span><span class="s1">&#39;WO&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">student_predictions</span><span class="p">[</span><span class="s1">&#39;HBO&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># Add Total column from Total_check</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">student_predictions</span><span class="p">[</span><span class="s1">&#39;Total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">student_predictions</span><span class="p">[</span><span class="s1">&#39;Total_check&#39;</span><span class="p">]</span>
-
-<span class="nn">File ~\anaconda3\Lib\site-packages\pandas\core\frame.py:4102,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4100</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">4101</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">4102</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4103</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">4104</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
-
-<span class="nn">File ~\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:3812,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3807</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">3808</span>         <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="n">abc</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3809</span>         <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3810</span>     <span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3811</span>         <span class="k">raise</span> <span class="n">InvalidIndexError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">3812</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">err</span>
-<span class="g g-Whitespace">   </span><span class="mi">3813</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3814</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3815</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3816</span>     <span class="c1">#  the TypeError.</span>
-<span class="g g-Whitespace">   </span><span class="mi">3817</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-<span class="ne">KeyError</span>: &#39;WO&#39;
+<span class="n">student_realisatie</span> <span class="o">=</span> <span class="n">pre_student_prognoses</span><span class="p">[</span><span class="n">pre_student_prognoses</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;realisatie&#39;</span><span class="p">]</span>
+<span class="n">student_prognoses</span> <span class="o">=</span> <span class="n">pre_student_prognoses</span><span class="p">[</span><span class="n">pre_student_prognoses</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;prognose&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="perspective-1-the-benefits-of-enrollment-growth">
 <h2>Perspective 1: The Benefits of Enrollment Growth.<a class="headerlink" href="#perspective-1-the-benefits-of-enrollment-growth" title="Link to this heading">#</a></h2>
@@ -687,11 +669,18 @@ dtype: int64
 <p>The substantial increase in student enrollments is likely a result of policies making higher education more accessible to a larger number of students. Programs like scholarships, financial aid, and outreach initiatives have played a significant role in attracting students from various backgrounds.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualisation </span>
-<span class="c1">#A line plot showing the growth in enrollment numbers over the years (from the dataset Inschrijvingen WO 2019-2023), </span>
-<span class="c1">#possibly segmented by province or university. This will illustrate the increase in enrollments year over year.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt1</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">([</span><span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">jaren</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="p">[(</span><span class="n">registraties_wo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">jaren</span><span class="p">],</span>
+    
+<span class="p">)])</span>
+
+<span class="n">plt1</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Number of students starting Higher Education in The Netherlands (2020 - 2024)&quot;</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">600</span><span class="p">)</span>
+<span class="n">plt1</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
 </div>
 </div>
 </section>
@@ -700,11 +689,48 @@ dtype: int64
 <p>The rise in international students (particularly those from non-EU countries) contributes to a more diverse academic environment. This diversity enriches the educational experience by fostering cultural exchange and offering global perspectives within local contexts.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualisation</span>
-<span class="c1"># A stacked bar chart showing the breakdown of students by nationality (Dutch, EU, non-EU) </span>
-<span class="c1"># over time (from the dataset Herkomst). This visualization would reveal the increasing share of international students.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jaren2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">2018</span><span class="p">,</span> <span class="mi">2019</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">2021</span><span class="p">,</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">2023</span><span class="p">,</span><span class="mi">2024</span><span class="p">]</span>
+
+<span class="n">totaal_NL</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">totaal_EER</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">totaal_niet_EER</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">jaar</span> <span class="ow">in</span> <span class="n">jaren2</span><span class="p">:</span>
+    <span class="n">totaal</span> <span class="o">=</span> <span class="n">student_realisatie</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">student_realisatie</span><span class="p">[</span><span class="s1">&#39;jaar&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">jaar</span><span class="p">)</span> <span class="o">&amp;</span> 
+        <span class="p">(</span><span class="n">student_realisatie</span><span class="p">[</span><span class="s1">&#39;herkomst&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;NL&#39;</span><span class="p">)</span>
+    <span class="p">][</span><span class="s1">&#39;ingeschrevenen_HO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    
+    <span class="n">totaal_NL</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totaal</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">jaar</span> <span class="ow">in</span> <span class="n">jaren2</span><span class="p">:</span>
+    <span class="n">totaal</span> <span class="o">=</span> <span class="n">student_realisatie</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">student_realisatie</span><span class="p">[</span><span class="s1">&#39;jaar&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">jaar</span><span class="p">)</span> <span class="o">&amp;</span> 
+        <span class="p">(</span><span class="n">student_realisatie</span><span class="p">[</span><span class="s1">&#39;herkomst&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;EER&#39;</span><span class="p">)</span>
+    <span class="p">][</span><span class="s1">&#39;ingeschrevenen_HO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    
+    <span class="n">totaal_EER</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totaal</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">jaar</span> <span class="ow">in</span> <span class="n">jaren2</span><span class="p">:</span>
+    <span class="n">totaal</span> <span class="o">=</span> <span class="n">student_realisatie</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">student_realisatie</span><span class="p">[</span><span class="s1">&#39;jaar&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">jaar</span><span class="p">)</span> <span class="o">&amp;</span> 
+        <span class="p">(</span><span class="n">student_realisatie</span><span class="p">[</span><span class="s1">&#39;herkomst&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;niet-EER&#39;</span><span class="p">)</span>
+    <span class="p">][</span><span class="s1">&#39;ingeschrevenen_HO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    
+    <span class="n">totaal_niet_EER</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totaal</span><span class="p">)</span>
+
+<span class="n">fig2</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Nederlandse Studenten&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">jaren2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">totaal_NL</span><span class="p">),</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Europese Studenten&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">jaren2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">totaal_EER</span><span class="p">),</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Niet-Europese Studenten&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">jaren2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">totaal_niet_EER</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">fig2</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">barmode</span><span class="o">=</span><span class="s1">&#39;stack&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Place of Origin of Students in Dutch Higher Education (2017 - 2024)&#39;</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">600</span><span class="p">)</span>
+<span class="n">fig2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
 </div>
 </div>
 </section>
@@ -713,89 +739,21 @@ dtype: int64
 <p>With more students graduating from universities and applied sciences institutions, the Dutch labor market is increasingly populated by individuals with advanced qualifications. This trend is essential for addressing skills gaps in key sectors such as healthcare, technology, and education.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualization:</span>
-<span class="c1"># A bar chart showing the number of graduates per study program over the years. </span>
-<span class="c1"># For instance, you could compare STEM fields and social sciences to demonstrate where the largest growth in graduates is occurring.</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="relevant-data-variables">
-<h4>Relevant Data Variables:<a class="headerlink" href="#relevant-data-variables" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p>Inschrijvingen WO 2019-2023 dataset for tracking total student enrollment across years.</p></li>
-<li><p>Herkomst dataset to explore the national origin of students, especially international enrollments.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dit is niet van mij (Sarah)</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">afdelingen</span> <span class="o">=</span> <span class="n">registraties_wo</span><span class="p">[</span><span class="s1">&#39;ONDERDEEL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">inschrijvingen_wo</span><span class="p">[</span><span class="s1">&#39;Jaar&#39;</span><span class="p">],</span> <span class="n">inschrijvingen_wo</span><span class="p">[</span><span class="s1">&#39;Totaal&#39;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Totaal aantal inschrijvingen WO per studiejaar (2019–2023)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Studiejaar&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Aantal inschrijvingen&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">data_fig3</span> <span class="o">=</span> <span class="p">{</span><span class="n">afdeling</span> <span class="p">:</span> <span class="p">[</span><span class="n">registraties_wo</span><span class="p">[</span><span class="n">registraties_wo</span><span class="p">[</span><span class="s1">&#39;ONDERDEEL&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">afdeling</span><span class="p">][</span><span class="n">jaar</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="k">for</span> <span class="n">jaar</span> <span class="ow">in</span> <span class="n">jaren</span><span class="p">]</span> <span class="k">for</span> <span class="n">afdeling</span> <span class="ow">in</span> <span class="n">afdelingen</span> <span class="p">}</span>
+
+
+
+<span class="n">fig3</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">afdeling</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">jaren</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data_fig3</span><span class="p">[</span><span class="n">afdeling</span><span class="p">])</span> <span class="k">for</span> <span class="n">afdeling</span> <span class="ow">in</span> <span class="n">afdelingen</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">fig3</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">barmode</span><span class="o">=</span><span class="s1">&#39;stack&#39;</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">600</span><span class="p">)</span>
+<span class="n">fig3</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="nn">File ~\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:3805,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3804</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">3805</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3806</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-
-<span class="nn">File index.pyx:167,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
-
-<span class="nn">File index.pyx:196,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
-
-<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7081,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7089,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="ne">KeyError</span>: &#39;Jaar&#39;
-
-<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
-
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">81</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">inschrijvingen_wo</span><span class="p">[</span><span class="s1">&#39;Jaar&#39;</span><span class="p">],</span> <span class="n">inschrijvingen_wo</span><span class="p">[</span><span class="s1">&#39;Totaal&#39;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Totaal aantal inschrijvingen WO per studiejaar (2019–2023)&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Studiejaar&quot;</span><span class="p">)</span>
-
-<span class="nn">File ~\anaconda3\Lib\site-packages\pandas\core\frame.py:4102,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4100</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">4101</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">4102</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4103</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">4104</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
-
-<span class="nn">File ~\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:3812,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3807</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">3808</span>         <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="n">abc</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3809</span>         <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3810</span>     <span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3811</span>         <span class="k">raise</span> <span class="n">InvalidIndexError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">3812</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">err</span>
-<span class="g g-Whitespace">   </span><span class="mi">3813</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3814</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3815</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3816</span>     <span class="c1">#  the TypeError.</span>
-<span class="g g-Whitespace">   </span><span class="mi">3817</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-<span class="ne">KeyError</span>: &#39;Jaar&#39;
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 800x500 with 0 Axes&gt;
-</pre></div>
-</div>
 </div>
 </div>
 </section>
@@ -805,135 +763,89 @@ dtype: int64
 <p>Onderstaande figuren tonen zowel de totaalverdeling als per jaar.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="s1">&#39;Mannen&#39;</span><span class="p">,</span> <span class="s1">&#39;Vrouwen&#39;</span><span class="p">],</span>
-        <span class="p">[</span><span class="n">inschrijvingen_wo</span><span class="p">[</span><span class="s1">&#39;Mannen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">inschrijvingen_wo</span><span class="p">[</span><span class="s1">&#39;Vrouwen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()],</span>
-        <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Totaal WO-inschrijvingen 2019–2023 naar geslacht&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Aantal inschrijvingen&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">inschrijvingen_wo</span><span class="p">[</span><span class="s1">&#39;Jaar&#39;</span><span class="p">],</span> <span class="n">inschrijvingen_wo</span><span class="p">[</span><span class="s1">&#39;Mannen&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Mannen&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">inschrijvingen_wo</span><span class="p">[</span><span class="s1">&#39;Jaar&#39;</span><span class="p">],</span> <span class="n">inschrijvingen_wo</span><span class="p">[</span><span class="s1">&#39;Vrouwen&#39;</span><span class="p">],</span> <span class="n">bottom</span><span class="o">=</span><span class="n">inschrijvingen_wo</span><span class="p">[</span><span class="s1">&#39;Mannen&#39;</span><span class="p">],</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Vrouwen&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;salmon&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;WO-inschrijvingen 2019–2023 naar geslacht per jaar&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Studiejaar&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Aantal inschrijvingen&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="perspective-2-the-challenges-of-enrollment-growth">
-<h2>Perspective 2: The Challenges of Enrollment Growth<a class="headerlink" href="#perspective-2-the-challenges-of-enrollment-growth" title="Link to this heading">#</a></h2>
-<section id="id1">
-<h3>Key Argument:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>Although the growth in student enrollments signifies broader educational opportunities, it also places significant pressure on the education system. Increased enrollment is straining infrastructure, elevating student-teacher ratios, and exacerbating housing shortages, all of which threaten the quality of education and student well-being.</p>
-</section>
-<section id="id2">
-<h3>Sub-arguments:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<section id="overburdened-infrastructure-and-resources">
-<h4>Overburdened Infrastructure and Resources:<a class="headerlink" href="#overburdened-infrastructure-and-resources" title="Link to this heading">#</a></h4>
-<p>As the number of students grows, the physical and human resources available to universities are being stretched thin. Universities face challenges in maintaining adequate classroom space, teaching staff, and facilities. This results in larger classes and fewer resources per student.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># **Visualization:**</span>
-<span class="c1"># A line plot showing the relationship between student enrollments and the number of teaching staff or classrooms (if available). </span>
-<span class="c1"># You could use data from the **Aantallen en prognoses ho** dataset to track the projected enrollments and compare them to current infrastructure data.</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="decline-in-educational-quality">
-<h4>Decline in Educational Quality:<a class="headerlink" href="#decline-in-educational-quality" title="Link to this heading">#</a></h4>
-<p>The rapid increase in student numbers may compromise educational quality. The student-to-teacher ratio has likely increased,
-reducing the level of individualized attention students receive, which could impact learning outcomes and overall satisfaction.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualization:</span>
-<span class="c1"># A stacked bar chart showing the trend in the student-to-teacher ratio, ideally for specific study programs or universities. </span>
-<span class="c1"># This would highlight how increasing enrollments are correlating with a higher number of students per instructor.</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="student-housing-shortage">
-<h4>Student Housing Shortage:<a class="headerlink" href="#student-housing-shortage" title="Link to this heading">#</a></h4>
-<p>The growing number of students, particularly in larger cities like Amsterdam and Rotterdam, has intensified the demand for student housing. The housing market has been unable to keep pace with this demand, leading to rising rents and a lack of available accommodation for students.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># **Visualization:**</span>
-<span class="c1"># An area chart or line plot comparing the number of enrollments to the number of available student accommodations (if such data is available). </span>
-<span class="c1"># This will show how student housing availability is not keeping up with enrollment growth.</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="id3">
-<h3>Relevant Data Variables:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><strong>Instroom_RR</strong> (Expected Enrollment) from the <strong>Aantallen en prognoses ho</strong> dataset can be used to project future enrollment and compare it with the availability of resources.</p></li>
-<li><p><strong>Ingeschrevenen_HO</strong> shows the actual number of students enrolled per program and can be used to identify the specific programs that are experiencing the highest enrollment growth.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;Jaar&#39;</span><span class="p">],</span> <span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;WO&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;WO&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;Jaar&#39;</span><span class="p">],</span> <span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;HBO&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;HBO&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Studentenaantallen HO met prognoses (2017–2038)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Jaar&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Aantal studenten&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">totaal_vrouw</span> <span class="o">=</span> <span class="p">[</span><span class="n">registraties_wo</span><span class="p">[</span><span class="n">registraties_wo</span><span class="p">[</span><span class="s1">&#39;GESLACHT&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;vrouw&#39;</span><span class="p">][</span><span class="n">jaar</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="k">for</span> <span class="n">jaar</span> <span class="ow">in</span> <span class="n">jaren</span><span class="p">]</span>
+<span class="n">totaal_man</span> <span class="o">=</span> <span class="p">[</span><span class="n">registraties_wo</span><span class="p">[</span><span class="n">registraties_wo</span><span class="p">[</span><span class="s1">&#39;GESLACHT&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;man&#39;</span><span class="p">][</span><span class="n">jaar</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="k">for</span> <span class="n">jaar</span> <span class="ow">in</span> <span class="n">jaren</span><span class="p">]</span>
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;Jaar&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;WO&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;WO&quot;</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">))</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;Jaar&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;HBO&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;HBO&quot;</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">))</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Interactieve prognose studenten HO (2017–2038)&quot;</span><span class="p">,</span>
-    <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;Jaar&quot;</span><span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Aantal studenten&quot;</span><span class="p">,</span>
-    <span class="n">xaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">rangeslider</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
-    <span class="n">legend</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">yanchor</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">fig4</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Mannelijke studenten&#39;</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">jaren</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">totaal_vrouw</span><span class="p">),</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Vrouwelijke studenten&#39;</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">jaren</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">totaal_man</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">fig4</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">600</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Numper of Students in Dutch Higher Education per Gender (2020 - 2021)&#39;</span><span class="p">)</span>
+<span class="n">fig4</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+</div>
 </div>
 </section>
 </section>
-<section id="reflection">
-<h2>Reflection<a class="headerlink" href="#reflection" title="Link to this heading">#</a></h2>
-<p>Feedback from seminar led to clear captions, static/interactive balance, and readable color choices.</p>
-</section>
-<section id="task-distribution">
-<h2>Task distribution<a class="headerlink" href="#task-distribution" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><strong>Jens Groen:</strong> Data cleaning and figures perspective 1</p></li>
-<li><p><strong>Thijs van der Meer:</strong> Forecasts and interactive visuals</p></li>
-<li><p><strong>Sarah Kruse:</strong> Justifying perspectives, storyline, and structure</p></li>
-</ul>
+<section id="perspectief-2-prognoses-en-toekomstige-knelpunten">
+<h2>Perspectief 2: Prognoses en Toekomstige Knelpunten<a class="headerlink" href="#perspectief-2-prognoses-en-toekomstige-knelpunten" title="Link to this heading">#</a></h2>
+<p><strong>Argument:</strong><br />
+DUO-prognoses laten zien dat studentenaantallen na een piek in 2024 zullen dalen door demografische krimp.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jaren3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">2026</span><span class="p">,</span> <span class="mi">2027</span><span class="p">,</span> <span class="mi">2028</span><span class="p">,</span> <span class="mi">2029</span><span class="p">,</span> <span class="mi">2030</span><span class="p">,</span> <span class="mi">2031</span><span class="p">,</span> <span class="mi">2032</span><span class="p">,</span> <span class="mi">2033</span><span class="p">,</span> <span class="mi">2034</span><span class="p">,</span> <span class="mi">2035</span><span class="p">,</span> <span class="mi">2036</span><span class="p">,</span> <span class="mi">2037</span><span class="p">,</span> <span class="mi">2038</span><span class="p">]</span>
+
+<span class="n">fig5</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">([</span><span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">student_prognoses</span><span class="p">[</span><span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;jaar&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">jaar</span><span class="p">][</span><span class="s1">&#39;ingeschrevenen_HO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="k">for</span> <span class="n">jaar</span> <span class="ow">in</span> <span class="n">jaren3</span><span class="p">],</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">jaren3</span>
+<span class="p">)])</span>
+<span class="n">fig5</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Projected Number of Students in Dutch Higher Education (2025 - 2038)&#39;</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">600</span><span class="p">)</span>
+
+<span class="n">fig5</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">totaal_NL</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">totaal_EER</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">totaal_niet_EER</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">jaar</span> <span class="ow">in</span> <span class="n">jaren3</span><span class="p">:</span>
+    <span class="n">totaal</span> <span class="o">=</span> <span class="n">student_prognoses</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;jaar&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">jaar</span><span class="p">)</span> <span class="o">&amp;</span> 
+        <span class="p">(</span><span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;herkomst&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;NL&#39;</span><span class="p">)</span>
+    <span class="p">][</span><span class="s1">&#39;ingeschrevenen_HO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    
+    <span class="n">totaal_NL</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totaal</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">jaar</span> <span class="ow">in</span> <span class="n">jaren3</span><span class="p">:</span>
+    <span class="n">totaal</span> <span class="o">=</span> <span class="n">student_prognoses</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;jaar&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">jaar</span><span class="p">)</span> <span class="o">&amp;</span> 
+        <span class="p">(</span><span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;herkomst&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;EER&#39;</span><span class="p">)</span>
+    <span class="p">][</span><span class="s1">&#39;ingeschrevenen_HO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    
+    <span class="n">totaal_EER</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totaal</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">jaar</span> <span class="ow">in</span> <span class="n">jaren3</span><span class="p">:</span>
+    <span class="n">totaal</span> <span class="o">=</span> <span class="n">student_prognoses</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;jaar&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">jaar</span><span class="p">)</span> <span class="o">&amp;</span> 
+        <span class="p">(</span><span class="n">student_prognoses</span><span class="p">[</span><span class="s1">&#39;herkomst&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;niet-EER&#39;</span><span class="p">)</span>
+    <span class="p">][</span><span class="s1">&#39;ingeschrevenen_HO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    
+    <span class="n">totaal_niet_EER</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">totaal</span><span class="p">)</span>
+
+<span class="n">fig6</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Nederlandse Studenten&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">jaren3</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">totaal_NL</span><span class="p">),</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Europese Studenten&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">jaren3</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">totaal_EER</span><span class="p">),</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Niet-Europese Studenten&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">jaren3</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">totaal_niet_EER</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">fig6</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">barmode</span><span class="o">=</span><span class="s1">&#39;stack&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Prognoses Number of Students in Dutch Higher Education per Origin (2025 - 2038)&#39;</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">600</span><span class="p">)</span>
+<span class="n">fig6</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
 </section>
 </section>
 
@@ -986,31 +898,31 @@ reducing the level of individualized attention students receive, which could imp
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enrollment-trends-and-future-projections">Enrollment Trends and Future Projections</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-and-preprocessing">Dataset and Preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing-summary">Data Preprocessing Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-data">1. Loading the Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-column-names">2. Cleaning Column Names</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-relevant-columns">3. Filtering Relevant Columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reshaping-enrolment-data">4. Reshaping Enrolment Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-enrolment-values">5. Cleaning Enrolment Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#harmonizing-institution-codes">6. Harmonizing Institution Codes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-prognoses-and-enrolments">7. Merging Prognoses and Enrolments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-missing-data">8. Handling Missing Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#renaming-prognosis-columns">9. Renaming Prognosis Columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-the-final-dataset">10. Saving the Final Dataset</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perspective-1-the-benefits-of-enrollment-growth">Perspective 1: The Benefits of Enrollment Growth.</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-argument">Key Argument:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sub-arguments">Sub-arguments:</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#improved-access-to-higher-education">Improved Access to Higher Education:</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#increased-cultural-diversity">Increased Cultural Diversity:</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#growth-of-a-highly-educated-workforce">Growth of a Highly Educated Workforce:</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#relevant-data-variables">Relevant Data Variables:</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verdeling-naar-geslacht">Verdeling naar geslacht</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perspective-2-the-challenges-of-enrollment-growth">Perspective 2: The Challenges of Enrollment Growth</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Key Argument:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Sub-arguments:</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overburdened-infrastructure-and-resources">Overburdened Infrastructure and Resources:</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#decline-in-educational-quality">Decline in Educational Quality:</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#student-housing-shortage">Student Housing Shortage:</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Relevant Data Variables:</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-distribution">Task distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perspectief-2-prognoses-en-toekomstige-knelpunten">Perspectief 2: Prognoses en Toekomstige Knelpunten</a></li>
 </ul>
   </nav></div>
 
