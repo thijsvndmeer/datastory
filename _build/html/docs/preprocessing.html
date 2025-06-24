@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; Hoger onderwijs</title>
+    <title>Data Preprocessing &#8212; Hoger onderwijs</title>
   
   
   
@@ -61,6 +61,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Growth and Challenges in Dutch Higher Education: Enrollment Trends and Future Projections" href="notebook.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -123,8 +124,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -170,11 +169,14 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="notebook.html">
-                    Growth and Challenges in Dutch Higher Education
+                    Growth and Challenges in Dutch Higher Education: Enrollment Trends and Future Projections
                 </a>
             </li>
         </ul>
-        
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Preprocessing</a></li>
+</ul>
+
     </div>
 </nav></div>
     </div>
@@ -376,9 +378,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -389,19 +389,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><no title></h1>
+    <h1>Data Preprocessing</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="simple visible nav section-nav flex-column">
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -411,91 +403,57 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="cell docutils container">
+  <section class="tex2jax_ignore mathjax_ignore" id="data-preprocessing">
+<h1>Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Link to this heading">#</a></h1>
+<p>Student Names:</p>
+<ul class="simple">
+<li><p>Jens Groen (15853411)</p></li>
+<li><p>Thijs van der Meer (15831086)</p></li>
+<li><p>Sarah Kruse (15396142)</p></li>
+</ul>
+<p>Team number: <br />
+<br />
+G2
+<br />
+<br />
+The following code is used to preprocess the datasets into files that are used for the data story.</p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="c1"># 1. Inladen</span>
-<span class="n">excel_file</span> <span class="o">=</span> <span class="s1">&#39;studentenprognoses-2025.xlsx&#39;</span>
-<span class="n">excel_sheet</span> <span class="o">=</span> <span class="s1">&#39;i v o s t h&#39;</span>
-<span class="n">csv_file</span> <span class="o">=</span> <span class="s1">&#39;04.-inschrijvingen-wo-2024.csv&#39;</span>
 
-<span class="c1"># 2. Kolomnamen opschonen</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">clean_cols</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">registraties_wo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;04.-inschrijvingen-wo-2024.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="n">pre_student_prognoses</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;studentenprognoses-2025.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;i v o s t h&quot;</span><span class="p">)</span> <span class="c1">#Selecteer de juiste sheet uit de dataset</span>
 
-<span class="c1"># Prognoses</span>
-<span class="n">df_prog</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="n">excel_sheet</span><span class="p">)</span>
-<span class="n">clean_cols</span><span class="p">(</span><span class="n">df_prog</span><span class="p">)</span>
+<span class="c1">#preprocessing dataset 1</span>
+<span class="n">jaren</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2020&#39;</span><span class="p">,</span><span class="s1">&#39;2021&#39;</span><span class="p">,</span><span class="s1">&#39;2022&#39;</span><span class="p">,</span><span class="s1">&#39;2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2024&#39;</span><span class="p">]</span> <span class="c1">#lijstje met de jaren om opvolgende stappen makkelijker te maken</span>
 
-<span class="c1"># Alleen relevante kolommen</span>
-<span class="n">prognose_cols</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;instellingscode&#39;</span><span class="p">,</span> <span class="s1">&#39;instellingsnaam&#39;</span><span class="p">,</span> <span class="s1">&#39;jaar&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;instroom_ho&#39;</span><span class="p">,</span> <span class="s1">&#39;tweedejaars_ho&#39;</span><span class="p">,</span> <span class="s1">&#39;hogerejaars_ho&#39;</span>
-<span class="p">]</span>
-<span class="n">df_prog</span> <span class="o">=</span> <span class="n">df_prog</span><span class="p">[</span><span class="n">prognose_cols</span><span class="p">]</span>
-<span class="n">df_prog</span><span class="p">[</span><span class="s1">&#39;jaar&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_prog</span><span class="p">[</span><span class="s1">&#39;jaar&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">registraties_wo</span> <span class="o">=</span> <span class="n">registraties_wo</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;5&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="c1">#veranderd waardes van &lt;5 naar 0</span>
 
-<span class="c1"># Inschrijvingen</span>
-<span class="n">df_ins</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
-<span class="n">clean_cols</span><span class="p">(</span><span class="n">df_ins</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">jaar</span> <span class="ow">in</span> <span class="n">jaren</span><span class="p">:</span>
+    <span class="n">registraties_wo</span><span class="p">[</span><span class="n">jaar</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">registraties_wo</span><span class="p">[</span><span class="n">jaar</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+    
+<span class="c1">#preprocessing dataset 2</span>
+<span class="n">jaren2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2017&#39;</span><span class="p">,</span> <span class="s1">&#39;2018&#39;</span><span class="p">,</span> <span class="s1">&#39;2019&#39;</span><span class="p">,</span> <span class="s1">&#39;2020&#39;</span><span class="p">,</span> <span class="s1">&#39;2021&#39;</span><span class="p">,</span> <span class="s1">&#39;2022&#39;</span><span class="p">,</span> <span class="s1">&#39;2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2024&#39;</span><span class="p">]</span>
 
-<span class="c1"># Inschrijvingen naar long-form</span>
-<span class="n">jaar_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_ins</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()]</span>
-<span class="n">id_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_ins</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">jaar_cols</span><span class="p">]</span>
-<span class="n">df_ins_long</span> <span class="o">=</span> <span class="n">df_ins</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="n">id_cols</span><span class="p">,</span> <span class="n">value_vars</span><span class="o">=</span><span class="n">jaar_cols</span><span class="p">,</span>
-                          <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;jaar&#39;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;inschrijvingen&#39;</span><span class="p">)</span>
+<span class="n">pre_student_prognoses</span> <span class="o">=</span> <span class="n">pre_student_prognoses</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;5&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
 
-<span class="c1"># Waarden opschonen en types zetten</span>
-<span class="n">df_ins_long</span><span class="p">[</span><span class="s1">&#39;jaar&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_ins_long</span><span class="p">[</span><span class="s1">&#39;jaar&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="n">df_ins_long</span><span class="p">[</span><span class="s1">&#39;inschrijvingen&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span>
-    <span class="n">df_ins_long</span><span class="p">[</span><span class="s1">&#39;inschrijvingen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\d+)&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-    <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ingeschrevenen_HO&#39;</span><span class="p">,</span> <span class="s1">&#39;instroom_RR&#39;</span><span class="p">,</span> <span class="s1">&#39;instroom_HO&#39;</span><span class="p">,</span> <span class="s1">&#39;tweedejaars_HO&#39;</span><span class="p">,</span> <span class="s1">&#39;hogerejaars_HO&#39;</span><span class="p">,</span> <span class="s1">&#39;instroom_THO_NW&#39;</span><span class="p">,</span> <span class="s1">&#39;tweedejaars_THO_NW&#39;</span><span class="p">,</span> <span class="s1">&#39;hogerejaars_THO_NW&#39;</span><span class="p">]:</span>
+    <span class="n">pre_student_prognoses</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">pre_student_prognoses</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
 
-<span class="c1"># Kolomnaam harmoniseren</span>
-<span class="k">if</span> <span class="s1">&#39;instellingscode_actueel&#39;</span> <span class="ow">in</span> <span class="n">df_ins_long</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="n">df_ins_long</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;instellingscode_actueel&#39;</span><span class="p">:</span> <span class="s1">&#39;instellingscode&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">student_realisatie</span> <span class="o">=</span> <span class="n">pre_student_prognoses</span><span class="p">[</span><span class="n">pre_student_prognoses</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;realisatie&#39;</span><span class="p">]</span>
+<span class="n">student_prognoses</span> <span class="o">=</span> <span class="n">pre_student_prognoses</span><span class="p">[</span><span class="n">pre_student_prognoses</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;prognose&#39;</span><span class="p">]</span>
 
-<span class="c1"># Houd alleen nodige kolommen</span>
-<span class="n">df_ins_clean</span> <span class="o">=</span> <span class="n">df_ins_long</span><span class="p">[[</span><span class="s1">&#39;instellingscode&#39;</span><span class="p">,</span> <span class="s1">&#39;jaar&#39;</span><span class="p">,</span> <span class="s1">&#39;instellingsnaam_actueel&#39;</span><span class="p">,</span> <span class="s1">&#39;inschrijvingen&#39;</span><span class="p">]]</span>
-<span class="n">df_ins_clean</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;instellingsnaam_actueel&#39;</span><span class="p">:</span> <span class="s1">&#39;instellingsnaam&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_merge</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">registraties_wo</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                      <span class="n">pre_student_prognoses</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)],</span>
+                     <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="c1"># 🧠 Merge met prognoses (LEFT JOIN zodat toekomstige jaren blijven)</span>
-<span class="n">df_merge</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_prog</span><span class="p">,</span> <span class="n">df_ins_clean</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;instellingscode&#39;</span><span class="p">,</span> <span class="s1">&#39;jaar&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
-
-<span class="c1"># Vul eventueel ontbrekende inschrijvingen met 0</span>
-<span class="n">df_merge</span><span class="p">[</span><span class="s1">&#39;inschrijvingen&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_merge</span><span class="p">[</span><span class="s1">&#39;inschrijvingen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-
-<span class="c1"># Prognosekolommen hernoemen</span>
-<span class="n">df_merge</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
-    <span class="s1">&#39;instroom_ho&#39;</span><span class="p">:</span> <span class="s1">&#39;prognose_instroom&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;tweedejaars_ho&#39;</span><span class="p">:</span> <span class="s1">&#39;prognose_tweedejaars&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;hogerejaars_ho&#39;</span><span class="p">:</span> <span class="s1">&#39;prognose_hogerejaars&#39;</span>
-<span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># Sorteren</span>
-<span class="n">df_merge</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;instellingscode&#39;</span><span class="p">,</span> <span class="s1">&#39;jaar&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># Opslaan</span>
 <span class="n">df_merge</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;studentdata_preprocessed.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ Gereed: </span><span class="si">{</span><span class="n">df_merge</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> rijen opgeslagen, inclusief toekomstige jaren.&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Thijs\AppData\Local\Temp\ipykernel_22220\2735695489.py:47: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-  df_ins_clean.rename(columns={&#39;instellingsnaam_actueel&#39;: &#39;instellingsnaam&#39;}, inplace=True)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Gereed: 261600 rijen opgeslagen, inclusief toekomstige jaren.
 </pre></div>
 </div>
 </div>
 </div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -527,27 +485,21 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="notebook.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Growth and Challenges in Dutch Higher Education: Enrollment Trends and Future Projections</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="simple visible nav section-nav flex-column">
-</ul>
-
-  </nav></div>
-
-</div></div>
               
             
           </div>
