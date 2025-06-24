@@ -42,5 +42,5 @@ sphinx:
       # This is for plotly to work
       - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
     togglebutton_selector: ".cell .input"
-    togglebutton_hint: "Toon/verberg code"
+    togglebutton_hint: "Show/hide code"
     togglebutton_default: true
