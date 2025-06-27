@@ -416,39 +416,49 @@ document.write(`
 G2
 <br />
 <br />
-The following code is used to preprocess the datasets into files that are used for the data story.</p>
+The following code cleans up some of the data to make it usable in our datastory. It than saves it to three seperate CSV files for usability reasons.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-
+<span class="c1">#load the datasets from their files</span>
 <span class="n">registraties_wo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;04.-inschrijvingen-wo-2024.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
 <span class="n">pre_student_prognoses</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;studentenprognoses-2025.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;i v o s t h&quot;</span><span class="p">)</span> <span class="c1">#Selecteer de juiste sheet uit de dataset</span>
 
 <span class="c1">#preprocessing dataset 1</span>
-<span class="n">jaren</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2020&#39;</span><span class="p">,</span><span class="s1">&#39;2021&#39;</span><span class="p">,</span><span class="s1">&#39;2022&#39;</span><span class="p">,</span><span class="s1">&#39;2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2024&#39;</span><span class="p">]</span> <span class="c1">#lijstje met de jaren om opvolgende stappen makkelijker te maken</span>
+<span class="n">jaren</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2020&#39;</span><span class="p">,</span><span class="s1">&#39;2021&#39;</span><span class="p">,</span><span class="s1">&#39;2022&#39;</span><span class="p">,</span><span class="s1">&#39;2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2024&#39;</span><span class="p">]</span> <span class="c1">#list of years to ease the next steps</span>
 
-<span class="n">registraties_wo</span> <span class="o">=</span> <span class="n">registraties_wo</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;5&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="c1">#veranderd waardes van &lt;5 naar 0</span>
+<span class="n">registraties_wo</span> <span class="o">=</span> <span class="n">registraties_wo</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;5&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="c1">#changes values of &lt;5 to 0</span>
+
 
 <span class="k">for</span> <span class="n">jaar</span> <span class="ow">in</span> <span class="n">jaren</span><span class="p">:</span>
     <span class="n">registraties_wo</span><span class="p">[</span><span class="n">jaar</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">registraties_wo</span><span class="p">[</span><span class="n">jaar</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
     
 <span class="c1">#preprocessing dataset 2</span>
-<span class="n">jaren2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2017&#39;</span><span class="p">,</span> <span class="s1">&#39;2018&#39;</span><span class="p">,</span> <span class="s1">&#39;2019&#39;</span><span class="p">,</span> <span class="s1">&#39;2020&#39;</span><span class="p">,</span> <span class="s1">&#39;2021&#39;</span><span class="p">,</span> <span class="s1">&#39;2022&#39;</span><span class="p">,</span> <span class="s1">&#39;2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2024&#39;</span><span class="p">]</span>
+<span class="n">jaren2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2017&#39;</span><span class="p">,</span> <span class="s1">&#39;2018&#39;</span><span class="p">,</span> <span class="s1">&#39;2019&#39;</span><span class="p">,</span> <span class="s1">&#39;2020&#39;</span><span class="p">,</span> <span class="s1">&#39;2021&#39;</span><span class="p">,</span> <span class="s1">&#39;2022&#39;</span><span class="p">,</span> <span class="s1">&#39;2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2024&#39;</span><span class="p">]</span> <span class="c1">#same as dataset 1</span>
 
+<span class="c1">#replace the string value &#39;&lt;5&#39; with 0 to make the dataset more usable</span>
 <span class="n">pre_student_prognoses</span> <span class="o">=</span> <span class="n">pre_student_prognoses</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;5&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
 
+<span class="c1">#replaces numerical strings in dataset 2 with numbers so it is usable later</span>
 <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ingeschrevenen_HO&#39;</span><span class="p">,</span> <span class="s1">&#39;instroom_RR&#39;</span><span class="p">,</span> <span class="s1">&#39;instroom_HO&#39;</span><span class="p">,</span> <span class="s1">&#39;tweedejaars_HO&#39;</span><span class="p">,</span> <span class="s1">&#39;hogerejaars_HO&#39;</span><span class="p">,</span> <span class="s1">&#39;instroom_THO_NW&#39;</span><span class="p">,</span> <span class="s1">&#39;tweedejaars_THO_NW&#39;</span><span class="p">,</span> <span class="s1">&#39;hogerejaars_THO_NW&#39;</span><span class="p">]:</span>
     <span class="n">pre_student_prognoses</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">pre_student_prognoses</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
 
+<span class="c1">#creates a dict with each gemeentes province</span>
+<span class="n">gemeente</span> <span class="o">=</span> <span class="p">{</span><span class="n">gemeente</span> <span class="p">:</span> <span class="n">registraties_wo</span><span class="p">[</span><span class="n">registraties_wo</span><span class="p">[</span><span class="s1">&#39;GEMEENTENAAM&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">gemeente</span><span class="p">][</span><span class="s1">&#39;PROVINCIE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">gemeente</span> <span class="ow">in</span> <span class="n">registraties_wo</span><span class="p">[</span><span class="s1">&#39;GEMEENTENAAM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()}</span>
+
+<span class="c1">#adds a province column to our other dataset since it does not have one.</span>
+<span class="n">pre_student_prognoses</span><span class="p">[</span><span class="s1">&#39;provincie&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pre_student_prognoses</span><span class="p">[</span><span class="s1">&#39;vestigingsgemeente&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">gemeente</span><span class="p">)</span>
+
+<span class="c1">#creates two seperate dataframes base upon if a row is from the past or a projection of the future</span>
 <span class="n">student_realisatie</span> <span class="o">=</span> <span class="n">pre_student_prognoses</span><span class="p">[</span><span class="n">pre_student_prognoses</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;realisatie&#39;</span><span class="p">]</span>
 <span class="n">student_prognoses</span> <span class="o">=</span> <span class="n">pre_student_prognoses</span><span class="p">[</span><span class="n">pre_student_prognoses</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;prognose&#39;</span><span class="p">]</span>
 
-<span class="n">df_merge</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">registraties_wo</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                      <span class="n">pre_student_prognoses</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)],</span>
-                     <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">df_merge</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;studentdata_preprocessed.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1">#saves the dataframes to seperate CSV files</span>
+<span class="n">registraties_wo</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;registraties_wo_pre_processed.csv&#39;</span><span class="p">)</span>
+<span class="n">student_realisatie</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;student_realisatie_pre_processed.csv&#39;</span><span class="p">)</span>
+<span class="n">student_prognoses</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;student_prognoses_pre_processed.csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
