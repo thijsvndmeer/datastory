@@ -4,4 +4,5 @@
 format: jb-book
 root: docs/notebook
 chapters:
+  - file: docs/about
   - file: docs/preprocessing
